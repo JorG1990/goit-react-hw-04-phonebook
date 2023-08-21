@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { ContactItem, Button } from "./Contact.styled";
 import { useState, useEffect } from "react";
 
-const Contact = ([ id, name, number, onClick ]) => {
+const Contact = ({ id, name, number, onClick }) => {
   const [contactId, setContactId] = useState(id);
 
   useEffect(() => {
@@ -15,11 +15,11 @@ const Contact = ([ id, name, number, onClick ]) => {
   };
 
   return (
-    <ContactItem key={ contactId }>
+    <ContactItem key={contactId}>
       <p>
-        { name }: { number }
+        {name}: {number}
       </p>
-      <Button type="button" onClick={ handleClick }>
+      <Button type="button" onClick={handleClick}>
         Delete
       </Button>
     </ContactItem>

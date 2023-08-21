@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import ContactForm from "../ContactForm/ContactForm";
-import ContactList from "../ContacList/ContactList";
+import ContactList from "../ContactList/ContactList";
 import Filter from "../Filter/Filter";
 import { Section, TitlePhone, SectionContact, TitleContact } from "./App.styled";
 
@@ -33,7 +33,7 @@ function App() {
       return alert(`${ name } is already in contacts.`);
     }
 
-    setContacts([{ name, number, id:nanoid() }, ...contacts]);
+    setContacts([{ name, number, id: nanoid() }, ...contacts]);
   };
 
   const filterContacts = () => {
@@ -43,12 +43,12 @@ function App() {
       );
   };
 
-  const deleteContacts = contactId => {
+  const deleteContact = contactId => {
     setContacts(prevContacts => prevContacts.filter(contact => contact.id !== contactId));
   };
 
   const handleFiliterChange = e => {
-    const { name, value } = e.currentTarget;
+    const { value } = e.currentTarget;
     setFilter(value);
   };
 
@@ -63,7 +63,7 @@ function App() {
       <SectionContact title="Contacts">
         <TitleContact>Contacts</TitleContact>
         <Filter value={ filter } onChange={ handleFiliterChange } />
-        <ContactList contacts={ viewContacts } onDeleteContact={ deleteContacts } />
+        <ContactList contacts={ viewContacts } onDeleteContact={ deleteContact } />
       </SectionContact>
     </div>
   );
