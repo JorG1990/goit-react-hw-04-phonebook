@@ -1,0 +1,73 @@
+
+import React, { useState, useEffect } from "react";
+import { nanoid } from "nanoid";
+import ContactForm from "../ContactForm/ContactForm";
+import ContactList from "../ContacList/ContactList";
+import Filter from "../Filter/Filter";
+import { Section, TitlePhone, SectionContact, TitleContact } from "./App.styled";
+
+function App() {
+  const [contacts, setContacts] = useState([
+    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+  ]);
+  const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    const savedContacts = JSON.parse(localStorage.getItem("contacts"));
+    if (savedContacts) {
+      setContacts(savedContacts);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
+
+  const addContact = ({ name, number }) => {
+    const minusName= name.toLowerCase();
+    const findName = contacts.find(contact => contact.name.toLowerCase() === minusName);
+    if (findName) {
+      return alert(`${ name } is already in contacts.`);
+    }
+
+    setContacts([{ name, number, id:nanoid() }, ...contacts]);
+  };
+
+  const filterContacts = () => {
+    const minusName = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(minusName)
+      );
+  };
+
+  const deleteContacts = contactId => {
+    setContacts(prevContacts => prevContacts.filter(contact => contact.id !== contactId));
+  };
+
+  const handleFiliterChange = e => {
+    const { name, value } = e.currentTarget;
+    setFilter(value);
+  };
+
+  const viewContacts = filterContacts();
+
+  return (
+    <div>
+      <Section title="phonebook">
+        <TitlePhone>Phonebook</TitlePhone>
+        <ContactForm onSubmit={ addContact } />
+      </Section>
+      <SectionContact title="Contacts">
+        <TitleContact>Contacts</TitleContact>
+        <Filter value={ filter } onChange={ handleFiliterChange } />
+        <ContactList contacts={ viewContacts } onDeleteContact={ deleteContacts } />
+      </SectionContact>
+    </div>
+  );
+}
+
+export default App;
+
