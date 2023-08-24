@@ -1,6 +1,6 @@
 
 import PropTypes from "prop-types";
-import { ContactItem, Button } from "./Contact.styled";
+import { ContactItem, Button } from "./contact.styled";
 import { useState, useEffect } from "react";
 
 const Contact = ({ id, name, number, onClick }) => {

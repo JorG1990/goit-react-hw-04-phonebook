@@ -1,8 +1,6 @@
 
 import styled from "styled-components";
 
-//Lista de Contacto
-
 export const ContactItem = styled.li`
   display: flex;
   justify-content: space-between;
@@ -10,9 +8,6 @@ export const ContactItem = styled.li`
   font-size: 15px;
   font-weight: 600;
 `;
-
-
-//Botones Delete
 
 export const Button = styled.button`
   font-size: 13px;
